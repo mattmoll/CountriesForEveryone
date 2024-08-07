@@ -7,6 +7,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
+builder.Services.AddAutoMapper(typeof(CountriesForEveryone.Server.Controllers.CountryController), 
+                               typeof(CountriesForEveryone.Service.CountryService), 
+                               typeof(CountriesForEveryone.Core.Entities.Country), 
+                               typeof(CountriesForEveryone.Adapter.Models.CountryDto));
+
+builder.Services.AddBusinessServices();
+builder.Services.AddAdapters(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -4,11 +4,11 @@ using System.Runtime.CompilerServices;
 
 namespace CountriesForEveryone.Service
 {
-    public abstract class BaseService
+    public abstract class BaseService<T>
     {
         private readonly ILogger _logger;
         protected ILogger Logger => _logger;
-        protected BaseService(ILogger logger)
+        protected BaseService(ILogger<T> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }

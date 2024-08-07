@@ -15,9 +15,9 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
 
         protected List<TEntity> Entities => _entities.Value;
 
-        public virtual Task<TEntity> Get(Guid id)
+        public virtual Task<TEntity> Get()
         {
-            var entity = Entities.FirstOrDefault(x => GetIdProperty(x) == id);
+            var entity = Entities.FirstOrDefault();
             return Task.FromResult(entity);
         }
 
@@ -43,7 +43,6 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
 
         protected abstract List<TEntity> LoadMockedEntities();
         protected abstract IEnumerable<TEntity> Filter(FilterCriteria<TEntityCriteria> filterCriteria, IEnumerable<TEntity> entities);
-        protected abstract Guid GetIdProperty(TEntity x);
         protected abstract IEnumerable<TEntity> Order(FilterCriteria<TEntityCriteria> filterCriteria, IEnumerable<TEntity> filteredEntities);
     }
 }

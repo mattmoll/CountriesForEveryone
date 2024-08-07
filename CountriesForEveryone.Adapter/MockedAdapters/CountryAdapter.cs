@@ -17,12 +17,12 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
             {
                 new()
                 {
-                    Id = Guid.Parse("58048bb3-f0d9-4dc3-bfeb-c60be7ab0c02"),
+                    Alpha2Code = "US",
                     Name = "United States",
                 },
                 new()
                 {
-                    Id = Guid.Parse("E88C7882-D73F-4A05-A134-D08E6251C713"),
+                    Alpha2Code = "AR",
                     Name = "Argentina",
                 },
             };
@@ -40,11 +40,14 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
             return entities;
         }
 
-        protected override Guid GetIdProperty(Country x) => x.Id;
-
         protected override IEnumerable<Country> Order(FilterCriteria<CountryCriteria> filterCriteria, IEnumerable<Country> filteredEntities)
         {
             return filteredEntities.OrderEntitiesBy(s => s.Name, filterCriteria.OrderDirection);
+        }
+
+        public Task<Country> Get(string countryCode)
+        {
+            throw new NotImplementedException();
         }
     }
 }
