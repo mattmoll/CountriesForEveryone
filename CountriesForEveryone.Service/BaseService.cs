@@ -13,7 +13,7 @@ namespace CountriesForEveryone.Service
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        internal async Task<T> TryExecute<T>(Func<Task<T>> functionToExecute, [CallerMemberName] string memberName = "")
+        internal async Task<V> TryExecute<V>(Func<Task<V>> functionToExecute, [CallerMemberName] string memberName = "")
         {
             var signature = $"{GetType().Name}.{memberName}";
             using (Logger.BeginScope("{Method}", signature))
@@ -26,7 +26,7 @@ namespace CountriesForEveryone.Service
                 {
                     var message = $"{GetType().Name}.{memberName} => Exception: {ex.Message}";
                     _logger.LogError(ex, message);
-                    throw new CountriesForEveryoneException(message, ex);
+                    throw;
                 }
             }
         }

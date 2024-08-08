@@ -11,6 +11,11 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
             throw new NotImplementedException();
         }
 
+        public Task<Country> Get(string countryCode)
+        {
+            return Task.FromResult(Entities.First(x => x.Alpha2Code == countryCode));
+        }
+
         protected override List<Country> LoadMockedEntities()
         {
             return new()
@@ -43,11 +48,6 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
         protected override IEnumerable<Country> Order(FilterCriteria<CountryCriteria> filterCriteria, IEnumerable<Country> filteredEntities)
         {
             return filteredEntities.OrderEntitiesBy(s => s.Name, filterCriteria.OrderDirection);
-        }
-
-        public Task<Country> Get(string countryCode)
-        {
-            throw new NotImplementedException();
         }
     }
 }

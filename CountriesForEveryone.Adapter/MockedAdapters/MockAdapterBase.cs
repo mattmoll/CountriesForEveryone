@@ -15,7 +15,7 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
 
         protected List<TEntity> Entities => _entities.Value;
 
-        public virtual Task<TEntity> Get()
+        public virtual Task<TEntity?> Get()
         {
             var entity = Entities.FirstOrDefault();
             return Task.FromResult(entity);
