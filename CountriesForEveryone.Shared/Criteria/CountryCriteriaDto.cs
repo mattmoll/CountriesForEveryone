@@ -1,6 +1,6 @@
-﻿namespace CountriesForEveryone.Core.Entities
+﻿namespace CountriesForEveryone.Shared.Criteria
 {
-    public class CountryCriteria
+    public class CountryCriteriaDto
     {
         public string? Name { get; set; }
         public string? CapitalCity { get; set; }

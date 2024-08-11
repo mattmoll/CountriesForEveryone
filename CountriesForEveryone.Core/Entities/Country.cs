@@ -2,6 +2,7 @@
 {
     public class Country
     {
+        public Guid Id { get; set; }
         public string Alpha2Code { get; set; }
         public string NumericCode { get; set; }
         public string Alpha3Code { get; set; }

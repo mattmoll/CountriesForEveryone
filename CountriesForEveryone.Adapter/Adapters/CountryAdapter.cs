@@ -34,10 +34,5 @@ namespace CountriesForEveryone.Adapter.Adapters
                 throw new ExternalApiException("Error fetching a country during execution of Get method", ex);
             }
         }
-
-        public Task<IEnumerable<Country>> GetByCriteria(CountryCriteria criteria)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -7,6 +7,8 @@ namespace CountriesForEveryone.Server.Mappers
     {
         public DomainEntitiesToPresentationEntities() 
         {
+            CreateMap(typeof(PagedList<>), typeof(PagedResponseDto<>));
+
             CreateMap<Country, CountryDto>();
             CreateMap<CountryDetails, CountryDetailsDto>();
 

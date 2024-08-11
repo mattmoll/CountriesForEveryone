@@ -1,5 +1,6 @@
 ﻿using CountriesForEveryone.Core.Adapters;
 using CountriesForEveryone.Core.Entities;
+using CountriesForEveryone.Core.Repositories;
 using CountriesForEveryone.Core.Services;
 using Microsoft.Extensions.Logging;
 
@@ -8,10 +9,12 @@ namespace CountriesForEveryone.Service
     public class CountryService : BaseService<CountryService>, ICountryService
     {
         private readonly ICountryAdapter _countryAdapter;
+        private readonly ICountryRepository _countryRepository;
 
-        public CountryService(ICountryAdapter countryAdapter, ILogger<CountryService> logger) : base(logger)
+        public CountryService(ICountryAdapter countryAdapter, ICountryRepository countryRepository, ILogger<CountryService> logger) : base(logger)
         {
             _countryAdapter = countryAdapter ?? throw new ArgumentNullException(nameof(countryAdapter));
+            _countryRepository = countryRepository ?? throw new ArgumentNullException(nameof(countryRepository));
         }
 
         public async Task<CountryDetails> Get(string countryCode)
@@ -25,9 +28,14 @@ namespace CountriesForEveryone.Service
             });
         }
 
-        public Task<Country> GetAllPaginated(FilterCriteria<CountryCriteria> filterCriteria)
+        public async Task<PagedList<Country>> GetAllPaginated(FilterCriteria<CountryCriteria> filterCriteria)
         {
-            throw new NotImplementedException();
+            return await TryExecute(async () =>
+            {
+                var results = await _countryRepository.GetByCriteria(filterCriteria);
+
+                return results;
+            });
         }
     }
 }

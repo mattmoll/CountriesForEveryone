@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,12 @@ builder.Services.AddAutoMapper(typeof(CountriesForEveryone.Server.Controllers.Co
 
 builder.Services.AddBusinessServices();
 builder.Services.AddAdapters(builder.Configuration);
+builder.Services.AddRepositories();
+builder.Services.AddCountriesForEveryoneContext(builder.Configuration);
 
 var app = builder.Build();
+
+app.InitializeDataBase(builder.Configuration);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -33,7 +38,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

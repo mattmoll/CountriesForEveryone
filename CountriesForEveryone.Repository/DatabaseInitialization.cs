@@ -12,11 +12,13 @@ namespace CountriesForEveryone.Repository
             using var serviceScope = serviceProvider.GetService<IServiceScopeFactory>()!.CreateScope();
             var dbContext = serviceScope.ServiceProvider.GetRequiredService<CountriesForEveryoneContext>();
 
+            /*
             if (configuration["RunMigrations"] == "True")
                 dbContext.Database.Migrate();
 
             if (configuration["RunSeeds"] == "True")
                 RunSeeds(dbContext);
+            */
         }
 
         public static void RunSeeds(CountriesForEveryoneContext dbContext)

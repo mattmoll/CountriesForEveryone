@@ -6,11 +6,6 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
 {
     public class CountryAdapter : MockAdapterBase<Country, CountryCriteria>, ICountryAdapter
     {
-        public Task<IEnumerable<Country>> GetByCriteria(CountryCriteria criteria)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<CountryDetails> Get(string countryCode)
         {
             return Task.FromResult(new CountryDetails(Entities.First(x => x.Alpha2Code == countryCode)));
@@ -47,7 +42,7 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
 
         protected override IEnumerable<Country> Order(FilterCriteria<CountryCriteria> filterCriteria, IEnumerable<Country> filteredEntities)
         {
-            return filteredEntities.OrderEntitiesBy(s => s.Name, filterCriteria.OrderDirection);
+            return filteredEntities.OrderEntitiesBy(s => s.Name, filterCriteria.OrderDirection ?? OrderDirection.Descending);
         }
     }
 }

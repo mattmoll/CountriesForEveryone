@@ -1,7 +1,9 @@
 using AutoMapper;
+using CountriesForEveryone.Core.Entities;
 using CountriesForEveryone.Core.Exceptions;
 using CountriesForEveryone.Core.Services;
 using CountriesForEveryone.Shared;
+using CountriesForEveryone.Shared.Criteria;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,6 +22,28 @@ namespace CountriesForEveryone.Server.Controllers
             _countryService = countryService ?? throw new ArgumentNullException(nameof(countryService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<PagedResponseDto<CountryDto>>> GetAllPaginated([FromQuery] PagingRequestDto<CountryCriteriaDto> pagingRequest)
+        {
+            try
+            {
+                var filterCriteria = _mapper.Map<FilterCriteria<CountryCriteria>>(pagingRequest);
+
+                var countriesPaginated = await _countryService.GetAllPaginated(filterCriteria);
+
+                return Ok(_mapper.Map<PagedResponseDto<CountryDto>>(countriesPaginated));
+
+            }
+            catch (InvalidParameterException ex)
+            {
+                return ValidationProblem(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, statusCode: 500);
+            }
         }
 
         [HttpGet]

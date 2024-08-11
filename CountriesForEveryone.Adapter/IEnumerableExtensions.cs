@@ -4,13 +4,23 @@ namespace CountriesForEveryone.Adapter.Extensions
 {
     public static class IEnumerableExtensions
     {
-        public static IEnumerable<T> Paginate<T>(this IEnumerable<T> enumerable, int pageSize, int pageNumber)
+        public static IEnumerable<T> Paginate<T>(this IEnumerable<T> enumerable, int? pageSize, int? pageNumber)
         {
-            var skipCount = pageSize * (pageNumber - 1);
+            if (!pageSize.HasValue)
+            {
+                pageSize = 10;
+            }
+
+            if (!pageNumber.HasValue)
+            {
+                pageNumber = 1;
+            }
+
+            var skipCount = pageSize.Value * (pageNumber.Value - 1);
 
             return enumerable
                 .Skip(skipCount)
-                .Take(pageSize)
+                .Take(pageSize.Value)
                 .ToList();
         }
 

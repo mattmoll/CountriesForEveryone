@@ -1,6 +1,7 @@
 ﻿using CountriesForEveryone.Core.Adapters;
 using CountriesForEveryone.Core.Entities;
 using CountriesForEveryone.Core.Exceptions;
+using CountriesForEveryone.Core.Repositories;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -11,11 +12,13 @@ namespace CountriesForEveryone.Service.Test.UnitTests
     {
         private readonly CountryService _countryService;
         private readonly Mock<ICountryAdapter> _mockCountryAdapter;
+        private readonly Mock<ICountryRepository> _mockCountryRepository;
 
         public CountryServiceTests()
         {
             _mockCountryAdapter = new Mock<ICountryAdapter>(MockBehavior.Strict);
-            _countryService = new CountryService(_mockCountryAdapter.Object, Mock.Of<ILogger<CountryService>>());
+            _mockCountryRepository = new Mock<ICountryRepository>(MockBehavior.Strict);
+            _countryService = new CountryService(_mockCountryAdapter.Object, _mockCountryRepository.Object, Mock.Of<ILogger<CountryService>>());
         }
 
         [Fact]

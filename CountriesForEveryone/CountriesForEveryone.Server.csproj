@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CountriesForEveryone.Adapter\CountriesForEveryone.Adapter.csproj" />
     <ProjectReference Include="..\CountriesForEveryone.Core\CountriesForEveryone.Core.csproj" />
+    <ProjectReference Include="..\CountriesForEveryone.Repository\CountriesForEveryone.Repository.csproj" />
     <ProjectReference Include="..\CountriesForEveryone.Service\CountriesForEveryone.Service.csproj" />
     <ProjectReference Include="..\CountriesForEveryone.Shared\CountriesForEveryone.Shared.csproj" />
   </ItemGroup>

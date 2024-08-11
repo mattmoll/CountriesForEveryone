@@ -4,6 +4,6 @@ namespace CountriesForEveryone.Core.Repositories
 {
     public interface ICountryRepository
     {
-        public Task<PagedList<Country>> GetPaginated(FilterCriteria<CountryCriteria> filterCriteria);
+        public Task<PagedList<Country>> GetByCriteria(FilterCriteria<CountryCriteria> filterCriteria);
     }
 }
