@@ -4,6 +4,7 @@ namespace CountriesForEveryone.Core.Services
 {
     public interface ICountryService
     {
-        Task<Country> Get(string countryCode);
+        Task<CountryDetails> Get(string countryCode);
+        Task<Country> GetAllPaginated(FilterCriteria<CountryCriteria> filterCriteria);
     }
 }

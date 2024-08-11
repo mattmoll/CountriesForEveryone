@@ -1,4 +1,4 @@
-﻿namespace CountriesForEveryone.Adapter.Models
+﻿namespace CountriesForEveryone.Shared
 {
     public class NameDto
     {

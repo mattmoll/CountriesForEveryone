@@ -24,13 +24,13 @@ namespace CountriesForEveryone.Server.Controllers
 
         [HttpGet]
         [Route("{countryCode}")]
-        public async Task<ActionResult<CountryDto>> GetByCode([Required] string countryCode)
+        public async Task<ActionResult<CountryDetailsDto>> GetByCode([Required] string countryCode)
         {
             try
             {
                 var country = await _countryService.Get(countryCode);
 
-                return Ok(_mapper.Map<CountryDto>(country));
+                return Ok(_mapper.Map<CountryDetailsDto>(country));
 
             }
             catch (InvalidParameterException ex)

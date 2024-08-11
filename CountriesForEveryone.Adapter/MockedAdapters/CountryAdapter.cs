@@ -11,9 +11,9 @@ namespace CountriesForEveryone.Adapter.MockedAdapters
             throw new NotImplementedException();
         }
 
-        public Task<Country> Get(string countryCode)
+        public Task<CountryDetails> Get(string countryCode)
         {
-            return Task.FromResult(Entities.First(x => x.Alpha2Code == countryCode));
+            return Task.FromResult(new CountryDetails(Entities.First(x => x.Alpha2Code == countryCode)));
         }
 
         protected override List<Country> LoadMockedEntities()

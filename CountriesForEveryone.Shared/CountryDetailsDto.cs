@@ -1,25 +1,14 @@
-﻿namespace CountriesForEveryone.Adapter.Models
+﻿namespace CountriesForEveryone.Shared
 {
-    public class CountryDto
+    public class CountryDetailsDto : CountryDto
     {
-        public NameDto Name { get; set; }
-        public List<string> Tld { get; set; }
-        public string Cca2 { get; set; }
-        public string Ccn3 { get; set; }
-        public string Cca3 { get; set; }
-        public string Cioc { get; set; }
-        public bool Independent { get; set; }
-        public string Status { get; set; }
-        public bool UnMember { get; set; }
-        public Dictionary<string, CurrencyDto> Currencies { get; set; }
-        public InternationalDialingCodeDto Idd { get; set; }
-        public List<string> Capital { get; set; }
-        public List<string> AltSpellings { get; set; }
-        public string Region { get; set; }
+        public List<string> InternationalTopLevelDomains { get; set; }
+        public List<CurrencyDto> Currencies { get; set; }
+        public InternationalDialingCodesDto InternationalDialingCodes { get; set; }
+        public List<string> AlternateSpellingsCountryName { get; set; }
         public string Subregion { get; set; }
-        public Dictionary<string, string> Languages { get; set; }
         public Dictionary<string, TranslationDto> Translations { get; set; }
-        public List<double> Latlng { get; set; }
+        public List<double> CapitalLatitudeLongitude { get; set; }
         public bool Landlocked { get; set; }
         public List<string> Borders { get; set; }
         public double Area { get; set; }

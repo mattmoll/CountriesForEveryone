@@ -1,7 +1,4 @@
-﻿using System.Net.Http;
-using Xunit;
-
-namespace CountriesForEveryone.Server.Test.Integration
+﻿namespace CountriesForEveryone.Server.Test.Integration
 {
     public class TestBase : IClassFixture<CustomWebApplicationFactory<StartupIntegration>>
     {

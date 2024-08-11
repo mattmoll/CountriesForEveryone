@@ -14,7 +14,7 @@ namespace CountriesForEveryone.Service
             _countryAdapter = countryAdapter ?? throw new ArgumentNullException(nameof(countryAdapter));
         }
 
-        public async Task<Country> Get(string countryCode)
+        public async Task<CountryDetails> Get(string countryCode)
         {
             return await TryExecute(async () =>
             {
@@ -23,6 +23,11 @@ namespace CountriesForEveryone.Service
 
                 return await _countryAdapter.Get(countryCode);
             });
+        }
+
+        public Task<Country> GetAllPaginated(FilterCriteria<CountryCriteria> filterCriteria)
+        {
+            throw new NotImplementedException();
         }
     }
 }

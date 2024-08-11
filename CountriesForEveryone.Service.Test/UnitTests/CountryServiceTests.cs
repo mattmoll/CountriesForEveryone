@@ -1,13 +1,9 @@
 ﻿using CountriesForEveryone.Core.Adapters;
+using CountriesForEveryone.Core.Entities;
 using CountriesForEveryone.Core.Exceptions;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CountriesForEveryone.Service.Test.UnitTests
 {
@@ -28,7 +24,7 @@ namespace CountriesForEveryone.Service.Test.UnitTests
             // Given
             var country = Mocks.Countries.GetOne();
 
-            _mockCountryAdapter.Setup(x => x.Get(It.IsAny<string>())).Returns(Task.FromResult(country));
+            _mockCountryAdapter.Setup(x => x.Get(It.IsAny<string>())).Returns(Task.FromResult(new CountryDetails(country)));
 
             // When
             var result = await _countryService.Get(country.Alpha2Code);
@@ -43,7 +39,7 @@ namespace CountriesForEveryone.Service.Test.UnitTests
         public async Task Get_WhenCodeIsNOTValid_ShouldThrowException()
         {
             // Given
-            var country = Mocks.Countries.GetOne();
+            var country = new CountryDetails(Mocks.Countries.GetOne());
             country.Alpha2Code = "InvalidCodeToSearchFor";
 
             _mockCountryAdapter.Setup(x => x.Get(It.IsAny<string>())).Returns(Task.FromResult(country));

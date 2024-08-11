@@ -22,7 +22,7 @@ namespace CountriesForEveryone.Server.Test.Integration.CountryController
 
             // When
             var response = await TestClient.GetAsync($"/api/countries/{countryCode}");
-            var result = await response.Content.ReadFromJsonAsync<CountryDto>();
+            var result = await response.Content.ReadFromJsonAsync<CountryDetailsDto>();
 
             // Then
             response.StatusCode.Should().Be(expectedCode);

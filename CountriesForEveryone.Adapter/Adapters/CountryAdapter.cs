@@ -13,7 +13,7 @@ namespace CountriesForEveryone.Adapter.Adapters
         {
         }
 
-        public async Task<Country> Get(string countryCode)
+        public async Task<CountryDetails> Get(string countryCode)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace CountriesForEveryone.Adapter.Adapters
                 }
                 var responseDto = responseDtos[0];
 
-                return Mapper.Map<Country>(responseDto);
+                return Mapper.Map<CountryDetails>(responseDto);
             }
             catch (Exception ex)
             {

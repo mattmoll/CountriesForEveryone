@@ -8,6 +8,22 @@ namespace CountriesForEveryone.Server.Mappers
         public DomainEntitiesToPresentationEntities() 
         {
             CreateMap<Country, CountryDto>();
+            CreateMap<CountryDetails, CountryDetailsDto>();
+
+            CreateMap<CapitalInfo, CapitalInfoDto>();
+            CreateMap<Car, CarDto>();
+            CreateMap<CoatOfArms, CoatOfArmsDto>();
+            CreateMap<Currency, CurrencyDto>();
+            CreateMap<Demonym, DemonymDto>();
+            CreateMap<Flags, FlagsDto>();
+            CreateMap<InternationalDialingCodes, InternationalDialingCodesDto>();
+            CreateMap<Maps, MapsDto>();
+            CreateMap<Name, NameDto>();
+            CreateMap<NativeName, NativeNameDto>();
+            CreateMap<PostalCode, PostalCodeDto>();
+            CreateMap<Translation, TranslationDto>();
+            CreateMap<Region, RegionDto>();
+            CreateMap<Language, LanguageDto>();
         }
     }
 }
