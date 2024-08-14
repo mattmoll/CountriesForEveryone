@@ -36,10 +36,6 @@ namespace CountriesForEveryone.Server.Controllers
                 return Ok(_mapper.Map<PagedResponseDto<CountryDto>>(countriesPaginated));
 
             }
-            catch (InvalidParameterException ex)
-            {
-                return ValidationProblem(ex.Message);
-            }
             catch (Exception ex)
             {
                 return Problem(ex.Message, statusCode: 500);

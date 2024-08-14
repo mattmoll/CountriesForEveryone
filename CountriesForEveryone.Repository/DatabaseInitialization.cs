@@ -1,4 +1,5 @@
 ﻿using CountriesForEveryone.Repository.Contexts;
+using CountriesForEveryone.Repository.Seeds;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,18 +13,16 @@ namespace CountriesForEveryone.Repository
             using var serviceScope = serviceProvider.GetService<IServiceScopeFactory>()!.CreateScope();
             var dbContext = serviceScope.ServiceProvider.GetRequiredService<CountriesForEveryoneContext>();
 
-            /*
             if (configuration["RunMigrations"] == "True")
                 dbContext.Database.Migrate();
 
             if (configuration["RunSeeds"] == "True")
                 RunSeeds(dbContext);
-            */
         }
 
         public static void RunSeeds(CountriesForEveryoneContext dbContext)
         {
-            //SeedCountries.Seed(dbContext);
+            SeedCountries.Seed(dbContext);
         }
     }
 }

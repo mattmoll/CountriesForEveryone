@@ -2,6 +2,8 @@
 {
     public class Region
     {
+        public Region() { }
+
         public Region(string name) 
         { 
             Name = name;

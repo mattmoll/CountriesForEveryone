@@ -12,6 +12,9 @@ namespace CountriesForEveryone.Server.Mappers
             CreateMap<Country, CountryDto>();
             CreateMap<CountryDetails, CountryDetailsDto>();
 
+            CreateMap<Region, RegionWithCountriesDto>();
+            CreateMap<Language, LanguageWithCountriesDto>();
+
             CreateMap<CapitalInfo, CapitalInfoDto>();
             CreateMap<Car, CarDto>();
             CreateMap<CoatOfArms, CoatOfArmsDto>();

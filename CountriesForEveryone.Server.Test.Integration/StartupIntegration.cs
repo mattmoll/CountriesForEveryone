@@ -22,6 +22,8 @@ namespace CountriesForEveryone.Server.Test.Integration
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.InitializeDataBase(Configuration);
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseCookiePolicy(new CookiePolicyOptions
@@ -47,6 +49,8 @@ namespace CountriesForEveryone.Server.Test.Integration
             services.AddControllers();
             services.AddBusinessServices();
             services.AddMockedHttpCommandAdapters();
+            services.AddRepositories();
+            services.AddCountriesForEveryoneContext(Configuration);
 
             // Needed for detecting controllers in tests
             services.AddControllers().AddApplicationPart(typeof(Controllers.CountryController).Assembly);

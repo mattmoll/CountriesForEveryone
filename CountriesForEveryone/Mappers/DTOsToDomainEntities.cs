@@ -10,6 +10,8 @@ namespace CountriesForEveryone.Server.Mappers
         {
             CreateMap(typeof(PagingRequestDto<>), typeof(FilterCriteria<>));
             CreateMap<CountryCriteriaDto, CountryCriteria>();
+            CreateMap<RegionCriteriaDto, RegionCriteria>();
+            CreateMap<LanguageCriteriaDto, LanguageCriteria>();
         }
     }
 }

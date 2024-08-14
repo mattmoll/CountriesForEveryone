@@ -6,6 +6,8 @@ public class TranslationDictionaryConverter : ITypeConverter<Dictionary<string, 
 {
     public Dictionary<string, Translation> Convert(Dictionary<string, TranslationDto> source, Dictionary<string, Translation> destination, ResolutionContext context)
     {
+        if (source == null || source.Count() == 0) return new Dictionary<string, Translation>();
+
         return source.ToDictionary(
             item => item.Key,
             item => new Translation

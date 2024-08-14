@@ -11,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddRepositories(this IServiceCollection services) =>
             services
                 .AddTransient<ICountryRepository, CountryRepository>()
+                .AddTransient<IRegionRepository, RegionRepository>()
+                .AddTransient<ILanguageRepository, LanguageRepository>()
             ;
 
         public static IServiceCollection AddCountriesForEveryoneContext(this IServiceCollection services, IConfiguration configuration)

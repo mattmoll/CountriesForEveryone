@@ -4,6 +4,7 @@ using CountriesForEveryone.Repository.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CountriesForEveryone.Repository.Migrations
 {
     [DbContext(typeof(CountriesForEveryoneContext))]
-    partial class CountriesForEveryoneContextModelSnapshot : ModelSnapshot
+    [Migration("20240814001001_FieldsFixes")]
+    partial class FieldsFixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

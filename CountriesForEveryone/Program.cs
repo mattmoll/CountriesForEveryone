@@ -1,5 +1,4 @@
-using AutoMapper;
-using Microsoft.Extensions.Configuration;
+using CountriesForEveryone.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,4 +39,18 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
+await InitializeDataOnFirstRunOrForced(app.Services);
+
 app.Run();
+
+
+
+async Task InitializeDataOnFirstRunOrForced(IServiceProvider serviceProvider)
+{
+    using var scope = serviceProvider.CreateScope();
+
+    var dataInitializationService = scope.ServiceProvider.GetRequiredService<IDataInitializationService>();
+    var forceDataFetchingUpdate = builder.Configuration.GetValue<bool>("ForceDataFetchingUpdate");
+
+    await dataInitializationService.LoadCountriesData(forceDataFetchingUpdate);
+}

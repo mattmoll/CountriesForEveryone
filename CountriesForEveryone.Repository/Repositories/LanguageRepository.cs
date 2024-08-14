@@ -6,13 +6,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CountriesForEveryone.Repository.Repositories
 {
-    public class CountryRepository : BaseRepository, ICountryRepository
+    public class LanguageRepository : BaseRepository, ILanguageRepository
     {
         private readonly CountriesForEveryoneContext _context;
 
-        public CountryRepository(CountriesForEveryoneContext context)
+        public LanguageRepository(CountriesForEveryoneContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        public async Task InsertAll(IEnumerable<Language> languagesToUpsert)
+        {
+            if (languagesToUpsert == null) throw new ArgumentNullException(nameof(languagesToUpsert));
+
+            foreach (var language in languagesToUpsert)
+            {
+                var existingLanguage = await _context.Languages.FirstOrDefaultAsync(r => r.Name == language.Name);
+
+                if (existingLanguage == null)
+                {
+                    language.Id = Guid.NewGuid();
+                    _context.Languages.Add(language);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Language>> GetAll()
+        {
+            return await _context.Languages.ToListAsync();
         }
 
         public Task<PagedList<Country>> GetByCriteria(FilterCriteria<CountryCriteria> filterCriteria)
@@ -31,24 +54,6 @@ namespace CountriesForEveryone.Repository.Repositories
             };
 
             return Task.FromResult(result);
-        }
-
-        public async Task InsertAll(IEnumerable<Country> countriesToUpsert)
-        {
-            if (countriesToUpsert == null) throw new ArgumentNullException(nameof(countriesToUpsert));
-
-            foreach (var country in countriesToUpsert)
-            {
-                var existingCountry = await _context.Countries.FirstOrDefaultAsync(c => c.Alpha2Code == country.Alpha2Code);
-
-                if (existingCountry == null)
-                {
-                    country.Id = Guid.NewGuid();
-                    _context.Countries.Add(country);
-                }
-            }
-
-            await _context.SaveChangesAsync();
         }
 
         private static IQueryable<Country> FilterCountries(FilterCriteria<CountryCriteria> filterCriteria, IQueryable<Country> countries)
@@ -114,10 +119,12 @@ namespace CountriesForEveryone.Repository.Repositories
 
         private IQueryable<Country> GetCountriesWithRelatedEntities()
         {
-            return _context.Countries
-                .Include(t => t.Region)
-                .Include(t => t.Languages)
-                .AsSplitQuery();
+            return _context.Countries;
+                //.Include(t => t.Region)
+                //.Include(t => t.Languages)
+                //.AsSplitQuery();
         }
+
+
     }
 }

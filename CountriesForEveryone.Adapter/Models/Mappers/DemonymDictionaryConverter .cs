@@ -6,6 +6,8 @@ public class DemonymDictionaryConverter : ITypeConverter<Dictionary<string, Demo
 {
     public Dictionary<string, Demonym> Convert(Dictionary<string, DemonymDto> source, Dictionary<string, Demonym> destination, ResolutionContext context)
     {
+        if (source == null || source.Count() == 0) return new Dictionary<string, Demonym>();
+
         return source.ToDictionary(
             item => item.Key,
             item => new Demonym

@@ -13,6 +13,27 @@ namespace CountriesForEveryone.Adapter.Adapters
         {
         }
 
+        public async Task<IEnumerable<Country>> GetAll()
+        {
+            try
+            {
+                var response = await HttpClient.GetAsync($"all");
+                response.EnsureSuccessStatusCode();
+
+                var responseDtos = await response.Content.ReadFromJsonAsync<CountryDto[]>();
+                if (responseDtos == null || responseDtos.Length == 0)
+                {
+                    throw new Exception("No country data found.");
+                }
+
+                return Mapper.Map<IEnumerable<CountryDetails>>(responseDtos);
+            }
+            catch (Exception ex)
+            {
+                throw new ExternalApiException("Error fetching the list of all countries during execution of GetAll method", ex);
+            }
+        }
+
         public async Task<CountryDetails> Get(string countryCode)
         {
             try
