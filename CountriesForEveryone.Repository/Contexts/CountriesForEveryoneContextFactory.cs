@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace CountriesForEveryone.Repository.Contexts
 {
@@ -8,8 +9,14 @@ namespace CountriesForEveryone.Repository.Contexts
         public CountriesForEveryoneContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<CountriesForEveryoneContext>();
-            var connectionString =
-                "server=localhost;port=3306;database=CountriesForEveryone;user=root;password=root;Persist Security Info=False; Connect Timeout=300";
+
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var connectionString = configuration.GetConnectionString("CountriesForEveryoneConnectionString");
+
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             return new CountriesForEveryoneContext(optionsBuilder.Options);
         }

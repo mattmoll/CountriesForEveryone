@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using CountriesForEveryone.Server.Config.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace CountriesForEveryone.Server.Test.Integration
@@ -26,6 +28,17 @@ namespace CountriesForEveryone.Server.Test.Integration
                 Configuration = conf.AddJsonFile(configPath)
                     .Build();
             });
+
+            builder.ConfigureServices(services =>
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+                services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            });
+
 
             return builder;
         }

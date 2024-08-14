@@ -1,5 +1,7 @@
-﻿using CountriesForEveryone.Shared;
+﻿using CountriesForEveryone.Server.Config.Models;
+using CountriesForEveryone.Shared;
 using FluentAssertions;
+using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Http.Json;
 

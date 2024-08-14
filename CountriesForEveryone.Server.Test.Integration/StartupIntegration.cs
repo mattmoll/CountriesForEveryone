@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AspNetCoreRateLimit;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,7 @@ namespace CountriesForEveryone.Server.Test.Integration
                 MinimumSameSitePolicy = SameSiteMode.None
             });
             app.UseAuthorization();
+            app.UseIpRateLimiting();
 
             app.UseEndpoints(endpoints =>
             {
@@ -47,10 +49,13 @@ namespace CountriesForEveryone.Server.Test.Integration
                                typeof(Adapter.Models.CountryDto));
 
             services.AddControllers();
+            services.AddMemoryCache();
             services.AddBusinessServices();
             services.AddMockedHttpCommandAdapters();
             services.AddRepositories();
             services.AddCountriesForEveryoneContext(Configuration);
+            services.AddRateLimitingServices(Configuration);
+            services.AddJWTAuthentication(Configuration);
 
             // Needed for detecting controllers in tests
             services.AddControllers().AddApplicationPart(typeof(Controllers.CountryController).Assembly);

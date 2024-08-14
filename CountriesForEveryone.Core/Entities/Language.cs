@@ -2,6 +2,8 @@
 {
     public class Language
     {
+        public Language() { }
+
         public Language(string code, string name) 
         {
             Id = Guid.Empty;

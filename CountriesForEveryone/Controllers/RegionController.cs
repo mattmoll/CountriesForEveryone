@@ -3,11 +3,13 @@ using CountriesForEveryone.Core.Entities;
 using CountriesForEveryone.Core.Services;
 using CountriesForEveryone.Shared;
 using CountriesForEveryone.Shared.Criteria;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountriesForEveryone.Server.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/regions")]
     public class RegionController : ControllerBase
     {

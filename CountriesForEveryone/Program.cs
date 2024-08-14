@@ -1,13 +1,12 @@
+using AspNetCoreRateLimit;
 using CountriesForEveryone.Core.Services;
+using CountriesForEveryone.Server.Sanitization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddMemoryCache();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -19,23 +18,27 @@ builder.Services.AddAutoMapper(typeof(CountriesForEveryone.Server.Controllers.Co
                                typeof(CountriesForEveryone.Adapter.Models.CountryDto));
 
 builder.Services.AddBusinessServices();
+builder.Services.AddAuthService();
 builder.Services.AddAdapters(builder.Configuration);
 builder.Services.AddRepositories();
 builder.Services.AddCountriesForEveryoneContext(builder.Configuration);
+builder.Services.AddRateLimitingServices(builder.Configuration);
+builder.Services.AddJWTAuthentication(builder.Configuration);
+builder.Services.AddSwaggerWithJWT();
 
 var app = builder.Build();
 
 app.InitializeDataBase(builder.Configuration);
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
+app.UseIpRateLimiting();
+
+app.UseMiddleware<InputSanitizationMiddleware>();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

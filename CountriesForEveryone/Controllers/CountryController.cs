@@ -4,12 +4,14 @@ using CountriesForEveryone.Core.Exceptions;
 using CountriesForEveryone.Core.Services;
 using CountriesForEveryone.Shared;
 using CountriesForEveryone.Shared.Criteria;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace CountriesForEveryone.Server.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/countries")]
     public class CountryController : ControllerBase
     {
@@ -25,6 +27,7 @@ namespace CountriesForEveryone.Server.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<PagedResponseDto<CountryDto>>> GetAllPaginated([FromQuery] PagingRequestDto<CountryCriteriaDto> pagingRequest)
         {
             try

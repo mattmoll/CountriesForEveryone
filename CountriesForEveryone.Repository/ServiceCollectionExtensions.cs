@@ -1,7 +1,6 @@
 ﻿using CountriesForEveryone.Core.Repositories;
 using CountriesForEveryone.Repository.Factories;
 using CountriesForEveryone.Repository.Repositories;
-using CountriesForEveryone.Repository.Settings;
 using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -17,8 +16,10 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddCountriesForEveryoneContext(this IServiceCollection services, IConfiguration configuration)
         {
-            var dbSettings = new DbSettings();
-            configuration.Bind(dbSettings);
+            var connString = configuration.GetConnectionString("CountriesForEveryoneConnectionString");
+
+            if (string.IsNullOrEmpty(connString))
+                throw new Exception("Missing Configuration: 'CountriesForEveryoneConnectionString' must be provided in appSettings.json");
 
             var selectedConnection = configuration.GetValue<String>("SelectedConnection");
 
@@ -26,7 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new Exception("Missing Configuration: 'SelectedConnection' must be provided in appSettings.json");
 
             var engine = RepositoryEngineFactory.CreateEngineFromConnectionName(selectedConnection);
-            engine.AddDbContext(dbSettings.CountriesForEveryoneConnectionString, services);
+            engine.AddDbContext(connString, services);
 
             return services;
         }
