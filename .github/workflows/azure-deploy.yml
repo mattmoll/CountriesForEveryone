@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+env:
+  AZURE_WEBAPP_NAME: countries-for-everyone-api
+  DOTNET_VERSION: '8.0'
 
 jobs:
   build-and-deploy:
@@ -11,22 +14,22 @@ jobs:
 
     steps:
     - name: Checkout GitHub Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0'
+        dotnet-version: ${{ env.DOTNET_VERSION }} 
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
 
     - name: Dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/countriesForEveryone
+      run: dotnet publish -c Release -o "${{env.GITHUB_WORKSPACE}}\countriesForEveryone"
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'countries-for-everyone-api'
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
-        package: ${{env.DOTNET_ROOT}}/countriesForEveryone
+        package: ${{env.GITHUB_WORKSPACE}}\countriesForEveryone
