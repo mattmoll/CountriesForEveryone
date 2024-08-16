@@ -59,16 +59,16 @@ Potential enhancements could include:
 
 ## Setup Locally
 
-**Requirements**: Docker, .NET 8.0, and a MySQL client.
+**Requirements**: Docker, .NET 8.0, .NET EF tools, and a MySQL client.
 
 ### Initial Setup
 - **Start Docker Environment**:
-  Navigate to the root directory of the project and execute the following command in a command prompt:
+  Make sure the Docker engine is running, then navigate to the root directory of the project and execute the following command in a command prompt:
   ```bash
   docker-compose up
   ```
 - **Create Database**:
-  Use a MySQL client to create a database named `CountriesForEveryone`.
+  Create a new Connection with the default values, make sure you put the same user and password as in the appsettings configuration or change it later if you use different values. Then, using a MySQL client, create a new database (schema) named `CountriesForEveryone`.
 
 - **Environment Variables**:
   You don't need to set up any environment variables unless you want to change the value of your connection string (e.g., you want to change the user or password for this DB) or JWT token. You can do this by changing the `appsettings` file or creating equivalent environment variables.

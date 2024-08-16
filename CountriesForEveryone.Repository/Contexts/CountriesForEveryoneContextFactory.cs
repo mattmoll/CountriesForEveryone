@@ -10,9 +10,11 @@ namespace CountriesForEveryone.Repository.Contexts
         {
             var optionsBuilder = new DbContextOptionsBuilder<CountriesForEveryoneContext>();
 
+            var basePath = String.Format("{0}/CountriesForEveryone", Directory.GetParent(Directory.GetCurrentDirectory())!.FullName);
+
             IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .SetBasePath(basePath)
+                .AddJsonFile("appsettings.Development.json")
                 .Build();
 
             var connectionString = configuration.GetConnectionString("CountriesForEveryoneConnectionString");
