@@ -22,7 +22,7 @@ namespace CountriesForEveryone.Server.Test.Integration
                 .AddJsonFile("appsettings.Test.json")
                 .Build();
             var jwtSettings = configuration.GetSection("Jwt").Get<JwtSettings>();
-            SetupAuthenticationHeaderValue(jwtSettings);
+            SetupAuthenticationHeaderValue(jwtSettings!);
         }
 
         private void SetupAuthenticationHeaderValue(JwtSettings jwtSettings)

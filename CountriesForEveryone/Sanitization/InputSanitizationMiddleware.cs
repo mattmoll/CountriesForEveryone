@@ -20,7 +20,7 @@ namespace CountriesForEveryone.Server.Sanitization
                 var sanitizedForm = new FormCollection(context.Request.Form
                     .ToDictionary(
                         f => f.Key,
-                        f => new StringValues(f.Value.Select(v => SanitizeInput(v)).ToArray())));
+                        f => new StringValues(f.Value.Select(v => SanitizeInput(v ?? "")).ToArray())));
 
                 context.Request.Form = sanitizedForm;
             }
