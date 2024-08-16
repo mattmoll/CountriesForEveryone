@@ -67,7 +67,7 @@ namespace CountriesForEveryone.Repository.Repositories
 
             if (!string.IsNullOrEmpty(criteria.CapitalCity))
             {
-                countries = countries.Where(c => c.CapitalCity == criteria.CapitalCity);
+                countries = countries.Where(c => c.CapitalCity != null && c.CapitalCity == criteria.CapitalCity);
             }
 
             if (criteria.UnitedNationsMember.HasValue)
@@ -82,7 +82,7 @@ namespace CountriesForEveryone.Repository.Repositories
 
             if (!string.IsNullOrEmpty(criteria.Status))
             {
-                countries = countries.Where(c => c.Status == criteria.Status);
+                countries = countries.Where(c => c.Status != null && c.Status == criteria.Status);
             }
 
             if (!string.IsNullOrEmpty(criteria.RegionName))
@@ -92,7 +92,7 @@ namespace CountriesForEveryone.Repository.Repositories
 
             if (!string.IsNullOrEmpty(criteria.LanguageName))
             {
-                countries = countries.Where(c => c.Languages.Any(l => l.Name == criteria.LanguageName));
+                countries = countries.Where(c => c.Languages.Any(l => l != null && l.Name == criteria.LanguageName));
             }
 
             return countries;
@@ -110,7 +110,6 @@ namespace CountriesForEveryone.Repository.Repositories
                 _ => filteredEntities.OrderEntitiesBy(x => x.Name, filterCriteria.OrderDirection)
             };
         }
-
 
         private IQueryable<Country> GetCountriesWithRelatedEntities()
         {

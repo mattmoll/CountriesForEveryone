@@ -25,12 +25,12 @@ namespace CountriesForEveryone.Service
 
                 if (languageCriteria.LanguageName != null)
                 {
-                    filteredLanguages = languages.Where(l => l.Name == languageCriteria.LanguageName);
+                    filteredLanguages = languages.Where(l => l.Name.ToLowerInvariant() == languageCriteria.LanguageName.ToLowerInvariant());
                 }
 
                 if (languageCriteria.LanguageCode != null)
                 {
-                    filteredLanguages = languages.Where(l => l.Code == languageCriteria.LanguageCode);
+                    filteredLanguages = languages.Where(l => l.Code.ToLowerInvariant() == languageCriteria.LanguageCode.ToLowerInvariant());
 
                     if (filteredLanguages.Any() && languageCriteria.LanguageName == null)
                     {

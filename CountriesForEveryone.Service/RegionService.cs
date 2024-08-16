@@ -25,7 +25,7 @@ namespace CountriesForEveryone.Service
 
                 if (regionCriteria.RegionName != null)
                 {
-                    filteredRegions = regions.Where(r => r.Name == regionCriteria.RegionName);
+                    filteredRegions = regions.Where(r => r.Name.ToLowerInvariant() == regionCriteria.RegionName.ToLowerInvariant());
                 }
 
                 if (filteredRegions.Any()) 
