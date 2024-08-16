@@ -42,7 +42,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-await InitializeDataOnFirstRunOrForced(app.Services);
+//await InitializeDataOnFirstRunOrForced(app.Services);
 
 app.Run();
 
